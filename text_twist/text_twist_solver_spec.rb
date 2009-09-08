@@ -9,11 +9,13 @@ end
 describe TextTwistSolver do
   before(:each) do
     @twister  = TextTwistSolver.new(File.join(File.dirname(__FILE__), "wordlist.txt"))
-    @solution = @twister.results_for("war")
+    @solution = @twister.results_for("crack")
   end
 
   it "should return the an array of words we can make" do
-    @solution.length.should == 2
-    @solution.include?("raw").should be_true
+    @solution.length.should == 5
+    ["rack", "arc", "ark", "car"].each do |word|
+      @solution.should include(word)
+    end
   end
 end

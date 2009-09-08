@@ -1,5 +1,4 @@
 # TODO: command line version stuffs
-# TODO: take number of letters into account
 
 class TextTwistSolver
   class FileNotFound < StandardError; end
@@ -21,9 +20,9 @@ class TextTwistSolver
   end
 
   def results_for(source_word, length = source_word.split("").length)
-    chars = source_word.split("")
-
     if length >= MIN_CHARS
+      chars = source_word.split("")
+
       # start with longest word, work back to shortest
       result = dictionary.filter_by_length(length).filter_by_characters(chars).to_a
       result += results_for(source_word, length - 1)
@@ -54,10 +53,30 @@ class TextTwistSolver
     # filter dictionary words, keeping only those words that contain only the characters in the array
     def filter_by_characters(characters)
       filtered = @data.select do |word| 
-        !word.split('').map { |char| characters.include? char }.include? false
+        word_can_be_created_from(word, characters)
+        #!word.split("").map { |char| characters.include? char }.include? false
       end
 
       Dictionary.new(filtered)
     end
+
+    private
+
+    def word_can_be_created_from(word, chars)
+      available_chars = chars.dup
+      word_chars = word.split("")
+
+      word_chars.each do |char|
+        if pos = available_chars.index(char)
+          available_chars.delete_at(pos)
+        else
+          return false
+        end
+      end
+
+      true
+    end
   end
 end
+
+
