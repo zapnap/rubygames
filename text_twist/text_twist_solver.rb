@@ -20,9 +20,8 @@ class TextTwistSolver
     end
   end
 
-  def results_for(source_word, length = 0)
+  def results_for(source_word, length = source_word.split("").length)
     chars = source_word.split("")
-    length = chars.length if length == 0
 
     if length >= MIN_CHARS
       # start with longest word, work back to shortest
