@@ -53,7 +53,6 @@ class TextTwistSolver
     def filter_by_characters(characters)
       filtered = @data.select do |word| 
         word_can_be_created_from(word, characters)
-        #!word.split("").map { |char| characters.include? char }.include? false
       end
 
       Dictionary.new(filtered)
