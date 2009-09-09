@@ -1,5 +1,3 @@
-# TODO: command line version stuffs
-
 class TextTwistSolver
   class FileNotFound < StandardError; end
 
@@ -19,6 +17,7 @@ class TextTwistSolver
     end
   end
 
+  # return other words that can be created from the source word
   def results_for(source_word, length = source_word.split("").length)
     if length >= MIN_CHARS
       chars = source_word.split("")
@@ -62,6 +61,7 @@ class TextTwistSolver
 
     private
 
+    # can the given word be constructed from the array of characters?
     def word_can_be_created_from(word, chars)
       available_chars = chars.dup
       word_chars = word.split("")
@@ -78,5 +78,3 @@ class TextTwistSolver
     end
   end
 end
-
-
